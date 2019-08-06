@@ -20,67 +20,55 @@ class App extends Component {
         rightAnswer: 3
       }
     ],
-    userAnswers: Array(3).fill(null),
+    userAnswers: Array(3).fill(0),
     readyForVerify: false,
     result: ""
   };
 
   rememberAnswer = e => {
     const indexOfQuestion = e.target.name;
-    const variant = e.target.dataset.variant;
-    console.log(indexOfQuestion, variant);
     const userAnswers = this.state.userAnswers;
-    userAnswers[indexOfQuestion] = variant;
-    console.log(userAnswers);
+    userAnswers[indexOfQuestion] = +e.target.dataset.score;
     this.setState({ userAnswers });
   };
 
   checkAnswers = () => {
     const userFinalAnswers = this.state.userAnswers;
-    let rightAnswers = [];
-    const victorina = this.state.victorina;
-    for (let i = 0; i < victorina.length; i++) {
-      rightAnswers.push(victorina[i].rightAnswer);
-    }
-    let result = 0;
-    for (let i = 0; i < victorina.length; i++) {
-      if (rightAnswers[i] == userFinalAnswers[i]) {
-        result++;
-      }
-    }
-
+    let result = this.state.userAnswers.reduce((total, answerScore) => total + answerScore, 0);
     this.setState({ readyForVerify: true });
     this.setState({ result });
   };
 
   render() {
     return (
-      <form
-        action="#"
-        className={this.state.readyForVerify ? "forbidClick" : ""}
-      >
-        {this.state.victorina.map((elem, idx) => (
-          <div>
-            <h1>{this.state.victorina[idx].question}</h1>
-            {this.state.victorina[idx].answers.map((question, num) => (
-              <label>
-                <input
-                  type="radio"
-                  name={idx}
-                  data-variant={num}
-                  data-right={
-                    this.state.victorina[idx].rightAnswer == num ? true : false
-                  }
-                  onClick={this.rememberAnswer}
-                />
-                {this.state.victorina[idx].answers[num]}
-              </label>
-            ))}
-          </div>
-        ))}
+      <>
+        <form
+          action="#"
+          className={this.state.readyForVerify ? "forbidClick" : ""}
+        >
+          {this.state.victorina.map((elem, idx) => (
+            <div>
+              <h1>{this.state.victorina[idx].question}</h1>
+              {this.state.victorina[idx].answers.map((question, num) => (
+                <label>
+                  <input
+                    type="radio"
+                    name={idx}
+                    data-variant={num}
+                    data-score={
+                      this.state.victorina[idx].rightAnswer == num ? 1 : 0
+                    }
+                    onClick={this.rememberAnswer}
+                  />
+                  {this.state.victorina[idx].answers[num]}
+                </label>
+              ))}
+            </div>
+          ))}
+        </form>
         <button onClick={this.checkAnswers}>Check my answers</button>
         {this.state.readyForVerify && <p>Your result is {this.state.result}</p>}
-      </form>
+      </>
     );
   }
 }
