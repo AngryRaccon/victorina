@@ -48,13 +48,17 @@ class App extends Component {
         result++;
       }
     }
+
     this.setState({ readyForVerify: true });
     this.setState({ result });
   };
 
   render() {
     return (
-      <form action="#">
+      <form
+        action="#"
+        className={this.state.readyForVerify ? "forbidClick" : ""}
+      >
         {this.state.victorina.map((elem, idx) => (
           <div>
             <h1>{this.state.victorina[idx].question}</h1>
