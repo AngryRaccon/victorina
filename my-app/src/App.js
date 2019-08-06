@@ -20,7 +20,9 @@ class App extends Component {
         rightAnswer: 3
       }
     ],
-    userAnswers: Array(3).fill(null)
+    userAnswers: Array(3).fill(null),
+    readyForVerify: false,
+    result: ""
   };
 
   rememberAnswer = e => {
@@ -46,7 +48,8 @@ class App extends Component {
         result++;
       }
     }
-    console.log(`your result is ${result}`);
+    this.setState({ readyForVerify: true });
+    this.setState({ result });
   };
 
   render() {
@@ -72,6 +75,7 @@ class App extends Component {
           </div>
         ))}
         <button onClick={this.checkAnswers}>Check my answers</button>
+        {this.state.readyForVerify && <p>Your result is {this.state.result}</p>}
       </form>
     );
   }
