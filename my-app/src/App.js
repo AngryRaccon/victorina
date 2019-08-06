@@ -33,7 +33,21 @@ class App extends Component {
     this.setState({ userAnswers });
   };
 
-  checkAnswers = () => {};
+  checkAnswers = () => {
+    const userFinalAnswers = this.state.userAnswers;
+    let rightAnswers = [];
+    const victorina = this.state.victorina;
+    for (let i = 0; i < victorina.length; i++) {
+      rightAnswers.push(victorina[i].rightAnswer);
+    }
+    let result = 0;
+    for (let i = 0; i < victorina.length; i++) {
+      if (rightAnswers[i] == userFinalAnswers[i]) {
+        result++;
+      }
+    }
+    console.log(`your result is ${result}`);
+  };
 
   render() {
     return (
