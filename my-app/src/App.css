@@ -1,3 +1,29 @@
+.question {
+  display: block;
+  font-size: 30px; 
+  font-weight: bold;
+}
+
 .forbidClick {
   pointer-events: none;
+  font-size: 24px;
+}
+
+.variantsOfAnswers {
+  display: block;
+  font-size: 24px;
+}
+
+.button {
+  font-size: 20px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.checkAnswers {
+  display: block;
 }
